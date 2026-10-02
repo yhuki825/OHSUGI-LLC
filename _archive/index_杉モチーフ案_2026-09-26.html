@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>合同会社オオスギ｜根を張り、幹を育て、枝をひろげる。</title>
+<meta name="description" content="合同会社オオスギは、不動産賃貸の管理・運営、インターネットとコンピュータを活用したシステムのリース・運営、インターネットと携帯を活用した広告・通信・コンサルティングを手がけています。">
+<meta name="theme-color" content="#16201B">
+<!--
+================================================================
+  合同会社オオスギ ブランドサイト デザイン案
+  ----------------------------------------------------------------
+  コンセプト：「大きな杉」— 年輪を重ねるように信頼を積み上げる
+    社名「オオスギ（大杉）」から着想。
+    三つの事業を一本の杉にたとえ、
+      根   … 不動産賃貸の管理・運営（暮らしと事業の足元）
+      幹   … システムのリース・運営（事業の中心で動き続ける仕組み）
+      枝葉 … 広告・通信・コンサルティング（想いを届く場所へ伸ばす）
+    として直感的に伝える構成。
+    ※所在地・地名・地域の名所からの着想は採用していません。
+
+  デプロイ：Cloudflare Pages（Direct Upload）
+    このファイル1枚をそのままアップロードすれば公開できます。
+    外部依存は Google Fonts と Unsplash の画像のみ。
+    画像が読み込めない場合はCSSのグラデーションに自動で切り替わります。
+
+  ── 公開前の確認事項（要確認）─────────────────────────
+  [ ] 社名の由来：コンセプト文で「オオスギの名にちなみ」と表現。社名の由来と齟齬がないか
+  [ ] 代表者の役職名：合同会社のため「代表社員」と表記。実際の登記上の肩書きを確認
+  [ ] 代表メッセージ：すべて仮の文案です。代表者ご本人の確認・修正が必須
+  [ ] 設立年月日・資本金・従業員数・取引銀行：未確認のため空欄
+  [ ] 宅地建物取引業免許：賃貸の仲介を行う場合は免許番号の表示が必要
+  [ ] 賃貸住宅管理業登録：管理戸数200戸以上の場合は登録が必要（登録番号の表示を推奨）
+  [ ] 電気通信事業の届出：通信業の内容によっては届出が必要（届出番号の表示を検討）
+  [ ] 景品表示法：広告業の実績・効果を掲載する場合は表現に注意
+  [ ] 各事業の具体的なサービス内容（本文・キーワード）は想定で記載。実態に合わせて修正
+  [ ] 画像はUnsplashのフリー素材（仮）。実際の物件・自社写真への差し替えを推奨
+  [ ] OGP画像・ファビコン：未設定
+  ================================================================
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* 杉の森を土台にした配色 */
+  --forest:#16201B;      /* 杉林の奥の影（ベース） */
+  --forest-2:#1D2A23;    /* 一段明るい影 */
+  --needle:#7E9A73;      /* 杉葉 */
+  --heart:#C28A62;       /* 赤身（心材） */
+  --sap:#E9E0CE;         /* 白太（辺材）＝本文色 */
+  --sap-dim:#B3AC9C;     /* 白太の陰 */
+  --ring:rgba(233,224,206,.14);
+  --serif:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho",serif;
+  --sans:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+  --latin:"Cormorant Garamond","Times New Roman",serif;
+  --wrap:min(1120px,calc(100% - 48px));
+  --header-h:72px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-h) + env(safe-area-inset-top,0px))}
+body{
+  margin:0;background:var(--forest);color:var(--sap);
+  font-family:var(--sans);font-size:16px;line-height:1.95;letter-spacing:.04em;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+:lang(ja) p,:lang(ja) h1,:lang(ja) h2,:lang(ja) h3{word-break:auto-phrase;text-wrap:pretty}
+.nw{display:inline-block}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--heart);outline-offset:4px;border-radius:2px}
+.skip{position:absolute;left:12px;top:-60px;z-index:200;background:var(--sap);color:var(--forest);padding:10px 16px;text-decoration:none;font-weight:700}
+.skip:focus{top:calc(12px + env(safe-area-inset-top,0px))}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- Header ---------- */
+.header{
+  position:fixed;inset:0 0 auto 0;z-index:100;
+  padding-top:env(safe-area-inset-top,0px);
+  transition:background .4s,border-color .4s;
+  border-bottom:1px solid transparent;
+}
+.header.is-scrolled{background:rgba(22,32,27,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-color:var(--ring)}
+.header__in{width:var(--wrap);margin:0 auto;height:var(--header-h);display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo svg{width:34px;height:34px}
+.logo__ja{font-family:var(--serif);font-size:1.15rem;font-weight:500;letter-spacing:.14em;line-height:1.2}
+.logo__ja small{display:block;font-size:.62rem;letter-spacing:.2em;color:var(--sap-dim);font-weight:400}
+.nav ul{list-style:none;margin:0;padding:0;display:flex;gap:36px}
+.nav a{text-decoration:none;font-size:.88rem;letter-spacing:.12em;padding:6px 0;position:relative}
+.nav a::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--heart);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.nav a:hover::after,.nav a:focus-visible::after{transform:scaleX(1)}
+.menu-btn{display:none;background:none;border:0;color:var(--sap);width:44px;height:44px;cursor:pointer;position:relative}
+.menu-btn span{position:absolute;left:11px;width:22px;height:1px;background:currentColor;transition:transform .3s,top .3s,opacity .3s}
+.menu-btn span:nth-child(1){top:16px}.menu-btn span:nth-child(2){top:22px}.menu-btn span:nth-child(3){top:28px}
+.menu-btn[aria-expanded="true"] span:nth-child(1){top:22px;transform:rotate(45deg)}
+.menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
+.menu-btn[aria-expanded="true"] span:nth-child(3){top:22px;transform:rotate(-45deg)}
+
+/* ---------- Scroll rail：杉が伸びる ---------- */
+.rail{position:fixed;right:22px;top:24vh;bottom:18vh;width:14px;z-index:90;pointer-events:none}
+.rail__trunk{position:absolute;left:6px;top:0;bottom:0;width:2px;background:var(--ring)}
+.rail__grow{position:absolute;left:6px;bottom:0;width:2px;height:0;background:linear-gradient(to top,var(--heart),var(--needle))}
+.rail__crown{position:absolute;left:0;bottom:0;width:14px;height:20px;transform:translateY(0)}
+.rail__crown svg{width:14px;height:20px;display:block}
+.rail__tick{position:absolute;left:3px;width:8px;height:1px;background:var(--ring)}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;min-height:100vh;min-height:100svh;overflow:hidden;display:flex;align-items:center}
+#rings{position:absolute;inset:0;width:100%;height:100%}
+.hero__veil{position:absolute;inset:0;background:radial-gradient(ellipse at 20% 60%,rgba(22,32,27,.85),rgba(22,32,27,0) 60%);pointer-events:none}
+.hero__in{position:relative;width:var(--wrap);margin:0 auto;display:grid;grid-template-columns:auto 1fr;gap:64px;align-items:end;padding:calc(var(--header-h) + 40px) 0 80px}
+.hero__title{
+  font-family:var(--serif);font-weight:500;margin:0;
+  writing-mode:vertical-rl;font-size:clamp(2.2rem,4.2vw,3.6rem);line-height:1.7;letter-spacing:.18em;
+  height:min(560px,68vh);
+}
+.hero__title span{display:block}
+.hero__title span:nth-child(2){margin-top:1.5em}
+.hero__title span:nth-child(3){margin-top:3em}
+.hero__lead{max-width:30em;font-size:.95rem;color:var(--sap-dim);margin:0 0 8px}
+.hero__lead strong{display:block;font-family:var(--latin);font-style:italic;font-weight:400;font-size:1.6rem;color:var(--sap);letter-spacing:.06em;margin-bottom:14px}
+.scroll-cue{position:absolute;left:50%;bottom:28px;transform:translateX(-50%);font-size:.72rem;letter-spacing:.3em;color:var(--sap-dim);display:flex;flex-direction:column;align-items:center;gap:10px;text-decoration:none}
+.scroll-cue::after{content:"";width:1px;height:42px;background:linear-gradient(var(--sap-dim),transparent);animation:cue 2.4s ease-in-out infinite}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ---------- Common section ---------- */
+.sec{padding:clamp(96px,14vw,168px) 0;position:relative}
+.wrap{width:var(--wrap);margin:0 auto}
+.h2{font-family:var(--serif);font-weight:500;font-size:clamp(1.7rem,3.2vw,2.5rem);line-height:1.6;letter-spacing:.1em;margin:0 0 40px}
+.h2 .ring-mark{display:inline-block;width:.7em;height:.7em;vertical-align:.12em;margin-right:.5em}
+
+/* ---------- Concept ---------- */
+.concept__grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(40px,7vw,96px);align-items:center}
+.concept p{margin:0 0 1.4em;max-width:32em}
+.concept__photo{position:relative;aspect-ratio:3/4}
+.ph{position:relative;overflow:hidden;background:linear-gradient(160deg,#2B3A31,#1B2520 55%,#3A2E24)}
+.ph img{width:100%;height:100%;object-fit:cover}
+.ph.is-fallback::after{content:attr(data-alt);position:absolute;inset:auto 16px 14px auto;font-size:.72rem;color:var(--sap-dim);letter-spacing:.1em}
+.ph--rings.is-fallback{background:repeating-radial-gradient(circle at 30% 70%,#2B3A31 0 10px,#24302A 10px 12px,#2B3A31 12px 22px)}
+.concept__photo figcaption{position:absolute;left:-1.4em;top:0;writing-mode:vertical-rl;font-family:var(--serif);font-size:.82rem;letter-spacing:.3em;color:var(--sap-dim);transform:translateX(-100%)}
+.reveal-img{clip-path:inset(100% 0 0 0);transition:clip-path 1.4s cubic-bezier(.2,.7,.2,1)}
+.reveal-img.is-in{clip-path:inset(0 0 0 0)}
+
+/* ---------- Tree diagram ---------- */
+.tree{background:var(--forest-2)}
+.tree__grid{display:grid;grid-template-columns:minmax(260px,380px) 1fr;gap:clamp(40px,7vw,100px);align-items:center}
+.tree__svg{width:100%;height:auto;overflow:visible}
+.tree__svg .part path,.tree__svg .part polygon,.tree__svg .part line{fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:var(--len,900);stroke-dashoffset:var(--len,900);transition:stroke-dashoffset 1.8s cubic-bezier(.4,.1,.2,1),stroke .3s}
+.tree__svg.is-drawn .part path,.tree__svg.is-drawn .part polygon,.tree__svg.is-drawn .part line{stroke-dashoffset:0}
+.tree__svg .p-ne path{stroke:var(--heart)}
+.tree__svg .p-miki path,.tree__svg .p-miki line{stroke:var(--sap)}
+.tree__svg .p-edaha polygon{stroke:var(--needle)}
+.tree__svg .p-miki{transition-delay:.5s}
+.tree__svg.is-drawn .p-miki path,.tree__svg.is-drawn .p-miki line{transition-delay:.6s}
+.tree__svg.is-drawn .p-edaha polygon{transition-delay:1.1s}
+.tree__svg .ground{stroke:var(--ring);stroke-width:1}
+.tree__svg a{cursor:pointer;outline:none}
+.tree__svg a text{font-family:var(--serif);font-size:15px;fill:var(--sap);letter-spacing:.2em;transition:fill .3s}
+.tree__svg a .hit{fill:transparent}
+.tree__svg a:hover text,.tree__svg a:focus-visible text{fill:var(--heart)}
+.tree__svg a:focus-visible .hit{stroke:var(--heart);stroke-width:1;stroke-dasharray:3 3}
+.tree__svg .lead-line{stroke:var(--sap-dim);stroke-width:.6}
+.tree__legend{list-style:none;margin:32px 0 0;padding:0;display:grid;gap:22px}
+.tree__legend li{display:grid;grid-template-columns:3.2em 1fr;gap:18px;align-items:baseline;padding-bottom:22px;border-bottom:1px solid var(--ring)}
+.tree__legend b{font-family:var(--serif);font-weight:500;font-size:1.25rem;letter-spacing:.2em}
+.tree__legend .c-ne b{color:var(--heart)}
+.tree__legend .c-miki b{color:var(--sap)}
+.tree__legend .c-edaha b{color:var(--needle)}
+.tree__legend span{font-size:.95rem}
+.tree__legend small{display:block;color:var(--sap-dim);font-size:.82rem}
+
+/* ---------- Business ---------- */
+.biz{padding:clamp(80px,11vw,140px) 0;border-top:1px solid var(--ring)}
+.biz:first-of-type{border-top:0}
+.biz__grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,88px);align-items:center}
+.biz--rev .biz__media{order:2}
+.biz__media{aspect-ratio:4/3.1}
+.biz__part{font-family:var(--serif);font-size:4.4rem;line-height:1;margin:0 0 18px;display:flex;align-items:flex-end;gap:18px}
+.biz__part em{font-style:normal;font-family:var(--sans);font-size:.8rem;letter-spacing:.2em;color:var(--sap-dim);padding-bottom:10px}
+#biz-ne .biz__part{color:var(--heart)}
+#biz-miki .biz__part{color:var(--sap)}
+#biz-edaha .biz__part{color:var(--needle)}
+.biz h3{font-family:var(--serif);font-weight:500;font-size:clamp(1.35rem,2.4vw,1.8rem);line-height:1.65;letter-spacing:.08em;margin:0 0 8px}
+.biz__field{font-size:.85rem;color:var(--sap-dim);margin:0 0 28px;letter-spacing:.08em}
+.biz p.body{margin:0 0 28px;max-width:30em}
+.biz__tags{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.biz__tags li{font-size:.8rem;padding:6px 14px;border:1px solid var(--ring);border-radius:999px;letter-spacing:.08em}
+
+/* ---------- Connection band ---------- */
+.band{position:relative;min-height:78vh;display:flex;align-items:center;overflow:hidden}
+.band .ph{position:absolute;inset:0}
+.band .ph::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(22,32,27,.92) 0%,rgba(22,32,27,.6) 55%,rgba(22,32,27,.25))}
+.band__in{position:relative;z-index:2;width:var(--wrap);margin:0 auto}
+.band__in h2{margin-bottom:28px}
+.band__in p{max-width:31em;margin:0 0 1.2em}
+.flow{display:flex;flex-wrap:wrap;gap:12px 0;margin-top:36px;font-family:var(--serif);font-size:.98rem;letter-spacing:.1em}
+.flow span{display:flex;align-items:center}
+.flow span+span::before{content:"";width:40px;height:1px;background:var(--sap-dim);margin:0 14px}
+
+/* ---------- Message ---------- */
+.message__in{display:flex;flex-direction:row-reverse;justify-content:space-between;gap:64px}
+.message__head{writing-mode:vertical-rl;margin:0;font-family:var(--serif);font-weight:500;font-size:clamp(1.8rem,3vw,2.4rem);letter-spacing:.2em;line-height:1.7}
+.message__body{writing-mode:vertical-rl;font-family:var(--serif);font-size:1.02rem;line-height:2.4;letter-spacing:.14em;height:30em;max-width:100%;overflow-x:auto;overflow-y:hidden;padding-bottom:12px}
+.message__body p{margin:0 0 0 1.4em}
+.message__sign{margin-top:auto;margin-right:2.4em;padding-top:4em;font-size:.95rem}
+.message__sign b{font-size:1.4rem;font-weight:500;margin-top:.8em;letter-spacing:.3em}
+
+/* ---------- Profile ---------- */
+.profile{background:var(--forest-2)}
+.profile__table{width:100%;border-collapse:collapse;max-width:880px}
+.profile__table th,.profile__table td{text-align:left;vertical-align:top;padding:22px 0;border-bottom:1px solid var(--ring);font-weight:400}
+.profile__table th{width:10em;color:var(--sap-dim);font-size:.9rem;letter-spacing:.14em;padding-right:24px}
+.profile__table ul{margin:0;padding:0;list-style:none}
+.profile__table li{padding-left:1.2em;position:relative}
+.profile__table li::before{content:"";position:absolute;left:0;top:.9em;width:.5em;height:1px;background:var(--heart)}
+
+/* ---------- Footer ---------- */
+.footer{padding:72px 0 calc(40px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--ring)}
+.footer__in{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
+.footer nav ul{list-style:none;padding:0;margin:0;display:flex;gap:28px;flex-wrap:wrap;font-size:.85rem}
+.footer nav a{text-decoration:none;color:var(--sap-dim)}
+.footer nav a:hover{color:var(--sap)}
+.copy{font-family:var(--latin);font-size:.9rem;color:var(--sap-dim);letter-spacing:.08em;margin:24px 0 0}
+
+/* ---------- Responsive ---------- */
+@media (max-width:900px){
+  .nav{position:fixed;inset:0;background:rgba(22,32,27,.97);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
+  .nav.is-open{opacity:1;visibility:visible}
+  .nav ul{flex-direction:column;align-items:center;gap:30px}
+  .nav a{font-family:var(--serif);font-size:1.25rem}
+  .menu-btn{display:block;z-index:110}
+  .hero__in{grid-template-columns:1fr;gap:36px;align-items:start}
+  .hero__title{writing-mode:horizontal-tb;height:auto;font-size:clamp(1.8rem,7.6vw,2.6rem);line-height:1.6;letter-spacing:.1em}
+  .hero__title span:nth-child(2),.hero__title span:nth-child(3){margin-top:0}
+  .hero__veil{background:linear-gradient(to top,rgba(22,32,27,.92) 20%,rgba(22,32,27,.2))}
+  .concept__grid,.tree__grid,.biz__grid{grid-template-columns:1fr}
+  .biz--rev .biz__media{order:0}
+  .concept__photo{aspect-ratio:4/3}
+  .concept__photo figcaption{display:none}
+  .tree__svg{max-width:300px;margin:0 auto;display:block}
+  .message__in{flex-direction:column}
+  .message__head,.message__body{writing-mode:horizontal-tb;height:auto}
+  .message__body{line-height:2.1;letter-spacing:.06em;overflow:visible}
+  .message__body p{margin:0 0 1.4em}
+  .message__sign{margin:1em 0 0;padding-top:0;text-align:right}
+  .profile__table th{width:6.5em}
+  .rail{right:8px;top:30vh;bottom:22vh}
+  .biz__part{font-size:3.4rem}
+}
+@media (max-width:560px){
+  .profile__table th,.profile__table td{display:block;width:auto;padding:0}
+  .profile__table th{padding-top:20px}
+  .profile__table td{padding:4px 0 20px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .reveal-img{clip-path:none}
+  .tree__svg .part path,.tree__svg .part polygon,.tree__svg .part line{stroke-dashoffset:0}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">本文へスキップ</a>
+
+<!-- スクロール進捗：一本の杉が下から伸びていく -->
+<div class="rail" aria-hidden="true">
+  <div class="rail__trunk"></div>
+  <div class="rail__grow" id="railGrow"></div>
+  <div class="rail__crown" id="railCrown">
+    <svg viewBox="0 0 14 20"><polygon points="7,0 13,9 10,9 14,16 0,16 4,9 1,9" fill="#7E9A73"/><rect x="6" y="16" width="2" height="4" fill="#C28A62"/></svg>
+  </div>
+</div>
+
+<header class="header" id="header">
+  <div class="header__in">
+    <a class="logo" href="#top" aria-label="合同会社オオスギ トップへ">
+      <!-- 年輪のロゴマーク（仮） -->
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <g fill="none" stroke-width="1.2">
+          <ellipse cx="21" cy="21" rx="17" ry="16" stroke="#E9E0CE"/>
+          <ellipse cx="21.5" cy="21.5" rx="12" ry="11.2" stroke="#E9E0CE" opacity=".7"/>
+          <ellipse cx="22" cy="22" rx="7.2" ry="6.8" stroke="#C28A62"/>
+          <circle cx="22.4" cy="22.3" r="2.4" fill="#C28A62" stroke="none"/>
+        </g>
+      </svg>
+      <span class="logo__ja">オオスギ<small>合同会社</small></span>
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-label="メニューを開く" aria-expanded="false" aria-controls="gnav"><span></span><span></span><span></span></button>
+    <nav class="nav" id="gnav" aria-label="メインメニュー">
+      <ul>
+        <li><a href="#concept">私たちについて</a></li>
+        <li><a href="#business">事業内容</a></li>
+        <li><a href="#message">代表メッセージ</a></li>
+        <li><a href="#profile">会社概要</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="top" aria-labelledby="heroTitle">
+    <canvas id="rings" aria-hidden="true"></canvas>
+    <div class="hero__veil"></div>
+    <div class="hero__in">
+      <h1 class="hero__title" id="heroTitle">
+        <span>根を張り、</span>
+        <span>幹を育て、</span>
+        <span>枝をひろげる。</span>
+      </h1>
+      <p class="hero__lead">
+        <strong>Oosugi, growing ring by ring.</strong>
+        合同会社オオスギは、暮らしと事業の足元となる<span class="nw">不動産の管理・運営</span>、事業の中心で動き続ける<span class="nw">システムのリース・運営</span>、そしてインターネットとモバイルで想いを届ける<span class="nw">広告・通信・コンサルティング</span>を手がけています。
+      </p>
+    </div>
+    <a class="scroll-cue" href="#concept">SCROLL</a>
+  </section>
+
+  <!-- ================= CONCEPT ================= -->
+  <section class="sec concept" id="concept" aria-labelledby="conceptTitle">
+    <div class="wrap concept__grid">
+      <div>
+        <h2 class="h2" id="conceptTitle"><svg class="ring-mark" viewBox="0 0 20 20" aria-hidden="true"><g fill="none" stroke="#C28A62"><circle cx="10" cy="10" r="9"/><circle cx="10.5" cy="10.5" r="5.5"/><circle cx="11" cy="11" r="2"/></g></svg>一年にひとつ、<br>年輪を重ねるように。</h2>
+        <!-- 要確認：社名の由来と表現に齟齬がないか -->
+        <p>杉は、一年にひとつずつ年輪を刻みながら、まっすぐ高く伸びていきます。急がず、けれど止まらずに。オオスギの名にちなみ、私たちはこの木の育ち方を仕事の手本にしています。</p>
+        <p>お預かりする建物も、動かし続けるシステムも、届けたい言葉も。ひとつひとつ丁寧に積み重ねた時間が、やがて揺るがない信頼になる。そう考えて、今日の仕事に向き合っています。</p>
+      </div>
+      <figure class="concept__photo" style="margin:0">
+        <div class="ph ph--rings reveal-img" data-alt="杉林の写真" style="height:100%">
+          <!-- フリー素材（Unsplash）。自社の写真に差し替え可 -->
+          <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=70" alt="霧の中にまっすぐ伸びる針葉樹の森" loading="lazy" onerror="this.parentElement.classList.add('is-fallback');this.remove();">
+        </div>
+        <figcaption>まっすぐに、高く。</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ================= TREE (事業の全体像) ================= -->
+  <section class="sec tree" id="business" aria-labelledby="treeTitle">
+    <div class="wrap tree__grid">
+      <svg class="tree__svg" id="treeSvg" viewBox="0 0 320 500" role="img" aria-labelledby="treeSvgTitle">
+        <title id="treeSvgTitle">オオスギの三つの事業を一本の杉にたとえた図。枝葉は広告・通信・コンサルティング、幹はシステムのリース・運営、根は不動産賃貸の管理・運営。</title>
+        <line class="ground" x1="20" y1="372" x2="300" y2="372"/>
+        <g class="part p-edaha">
+          <polygon points="160,20 196,86 180,86 222,160 196,160 246,248 74,248 124,160 98,160 140,86 124,86"/>
+        </g>
+        <g class="part p-miki">
+          <path d="M150 248 L148 372 M170 248 L172 372"/>
+          <path d="M160 270 q-4 20 0 40 q4 20 0 40"/>
+        </g>
+        <g class="part p-ne">
+          <path d="M148 372 C140 400 112 412 78 430"/>
+          <path d="M172 372 C182 402 212 414 250 426"/>
+          <path d="M156 372 C154 410 142 440 126 474"/>
+          <path d="M164 372 C168 412 184 444 202 472"/>
+          <path d="M112 412 C100 424 96 444 92 458"/>
+          <path d="M214 414 C230 426 236 444 238 458"/>
+        </g>
+        <!-- ラベル（クリックで各事業へ移動） -->
+        <line class="lead-line" x1="230" y1="130" x2="276" y2="130"/>
+        <a href="#biz-edaha" aria-label="枝葉：広告・通信・コンサルティングへ">
+          <rect class="hit" x="276" y="112" width="44" height="34" rx="3"/>
+          <text x="282" y="135">枝葉</text>
+        </a>
+        <line class="lead-line" x1="176" y1="320" x2="276" y2="320"/>
+        <a href="#biz-miki" aria-label="幹：システムのリース・運営へ">
+          <rect class="hit" x="276" y="302" width="44" height="34" rx="3"/>
+          <text x="290" y="325">幹</text>
+        </a>
+        <line class="lead-line" x1="66" y1="436" x2="30" y2="410"/>
+        <a href="#biz-ne" aria-label="根：不動産賃貸の管理・運営へ">
+          <rect class="hit" x="0" y="384" width="40" height="34" rx="3"/>
+          <text x="10" y="406">根</text>
+        </a>
+      </svg>
+      <div>
+        <h2 class="h2" id="treeTitle">三つの事業は、<br>一本の木。</h2>
+        <p>足元を支える根、中心で動き続ける幹、外へと伸びる枝葉。オオスギの事業は、それぞれが別々にあるのではなく、一本の木としてつながっています。</p>
+        <ul class="tree__legend">
+          <li class="c-ne"><b>根</b><span>不動産賃貸の管理・運営<small>暮らしと事業の足元を支える</small></span></li>
+          <li class="c-miki"><b>幹</b><span>システムのリース・運営<small>インターネットとコンピュータの仕組みを動かす</small></span></li>
+          <li class="c-edaha"><b>枝葉</b><span>広告・通信・コンサルティング<small>インターネットと携帯で想いを届ける</small></span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BUSINESS DETAIL ================= -->
+  <!-- 要確認：各事業の具体的なサービス内容・キーワードは想定で記載 -->
+  <div aria-label="事業の詳細" role="region">
+    <article class="biz" id="biz-ne" aria-labelledby="bizNeTitle">
+      <div class="wrap biz__grid">
+        <div class="biz__media ph reveal-img" data-alt="賃貸物件の写真">
+          <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1400&q=70" alt="落ち着いた外観の集合住宅" loading="lazy" onerror="this.parentElement.classList.add('is-fallback');this.remove();">
+        </div>
+        <div>
+          <p class="biz__part" aria-hidden="true">根<em>Real estate</em></p>
+          <h3 id="bizNeTitle">暮らしと事業の足元を、<br>長く支える。</h3>
+          <p class="biz__field">不動産賃貸の管理・運営</p>
+          <!-- 要確認：仲介を行う場合は宅地建物取引業免許、管理戸数200戸以上の場合は賃貸住宅管理業登録の番号表示 -->
+          <p class="body">入居者さまの募集から日々の管理、建物の維持まで。オーナーさまからお預かりした大切な資産を、住む人・使う人にとって心地よい場所として、長く価値の続くかたちで運営します。</p>
+          <ul class="biz__tags"><li>賃貸物件の管理</li><li>入居者対応</li><li>建物の維持・点検</li><li>運営のご相談</li></ul>
+        </div>
+      </div>
+    </article>
+
+    <article class="biz biz--rev" id="biz-miki" aria-labelledby="bizMikiTitle">
+      <div class="wrap biz__grid">
+        <div class="biz__media ph reveal-img" data-alt="システムの写真">
+          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1400&q=70" alt="整然と並ぶサーバー機器" loading="lazy" onerror="this.parentElement.classList.add('is-fallback');this.remove();">
+        </div>
+        <div>
+          <p class="biz__part" aria-hidden="true">幹<em>Systems</em></p>
+          <h3 id="bizMikiTitle">事業の中心で、<br>止まらずに動く仕組みを。</h3>
+          <p class="biz__field">インターネットおよびコンピュータを活用したシステムのリース・運営</p>
+          <p class="body">必要なシステムを、必要なかたちで。インターネットとコンピュータを活用した仕組みを、導入から日々の運用までまとめてご提供します。自社で抱え込まずに、事業の土台となるシステムを安心して使い続けられるようにします。</p>
+          <ul class="biz__tags"><li>システムのリース</li><li>導入・設定</li><li>日々の運用・保守</li></ul>
+        </div>
+      </div>
+    </article>
+
+    <article class="biz" id="biz-edaha" aria-labelledby="bizEdahaTitle">
+      <div class="wrap biz__grid">
+        <div class="biz__media ph reveal-img" data-alt="スマートフォンの写真">
+          <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1400&q=70" alt="スマートフォンを操作する手元" loading="lazy" onerror="this.parentElement.classList.add('is-fallback');this.remove();">
+        </div>
+        <div>
+          <p class="biz__part" aria-hidden="true">枝葉<em>Media &amp; Consulting</em></p>
+          <h3 id="bizEdahaTitle">想いを、<br>届く場所まで伸ばす。</h3>
+          <p class="biz__field">インターネット・携帯を活用した広告業、通信業、コンサルティング業</p>
+          <!-- 要確認：通信業の内容により電気通信事業の届出番号の表示／広告の実績・効果を載せる場合は景品表示法に留意 -->
+          <p class="body">ウェブサイトやスマートフォンを通じた広告、通信サービス、そしてそれらをどう活かすかのご相談まで。事業の声が、届けたい人のもとへまっすぐ届くよう、枝を広げるようにお手伝いします。</p>
+          <ul class="biz__tags"><li>インターネット広告</li><li>モバイル広告</li><li>通信サービス</li><li>活用コンサルティング</li></ul>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <!-- ================= CONNECTION ================= -->
+  <section class="band" aria-labelledby="bandTitle">
+    <div class="ph" data-alt="森の写真">
+      <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=2000&q=70" alt="" loading="lazy" onerror="this.parentElement.classList.add('is-fallback');this.remove();">
+    </div>
+    <div class="band__in">
+      <h2 class="h2" id="bandTitle">一本の木だから、<br>ひとつの窓口で。</h2>
+      <p>管理する建物の入居者募集にはウェブの広告を。建物の運営にはシステムの仕組みを。三つの事業がつながっているから、ご相談ごとを分けることなく、ひとつの窓口でまとめてお応えできます。</p>
+      <div class="flow" aria-label="事業のつながり">
+        <span>建物を管理する</span><span>仕組みで運営する</span><span>広告で届ける</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MESSAGE ================= -->
+  <!-- 要確認：以下は仮の文案です。代表者ご本人による確認・修正のうえ公開してください -->
+  <section class="sec message" id="message" aria-labelledby="messageTitle">
+    <div class="wrap message__in">
+      <h2 class="message__head" id="messageTitle">木は、一日では<br>育たない。</h2>
+      <div class="message__body">
+        <p>一本の杉が大きな木になるまでには、長い時間がかかります。けれど、その時間のすべてが年輪として幹に残り、木を内側から支えています。</p>
+        <p>私たちの仕事も同じだと考えています。建物を守ること、仕組みを動かし続けること、言葉を届けること。どれも一度きりで終わるものではなく、日々の積み重ねによって少しずつ形になっていくものです。</p>
+        <p>派手さはなくとも、まっすぐに。お客さまと長くお付き合いできる会社でありたいと願っています。</p>
+        <p class="message__sign">合同会社オオスギ 代表社員<!-- 要確認：役職名 --><br><b>大杉 身佳</b></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROFILE ================= -->
+  <section class="sec profile" id="profile" aria-labelledby="profileTitle">
+    <div class="wrap">
+      <h2 class="h2" id="profileTitle">会社概要</h2>
+      <table class="profile__table">
+        <tbody>
+          <tr><th scope="row">商号</th><td>合同会社オオスギ</td></tr>
+          <tr><th scope="row">代表者</th><td>代表社員　大杉 身佳<!-- 要確認：役職名 --></td></tr>
+          <tr><th scope="row">所在地</th><td>〒434-0015<br>静岡県浜松市浜名区於呂1726-2</td></tr>
+          <tr><th scope="row">事業内容</th><td>
+            <ul>
+              <li>不動産賃貸の管理、運営</li>
+              <li>インターネットおよびコンピュータを活用したシステムのリース、運営</li>
+              <li>インターネット、携帯を活用した広告業、通信業、およびコンサルティング業</li>
+            </ul>
+          </td></tr>
+          <!-- 要確認：以下は未確認のため非表示。確定後にコメントを外して記入
+          <tr><th scope="row">設立</th><td></td></tr>
+          <tr><th scope="row">資本金</th><td></td></tr>
+          <tr><th scope="row">許認可</th><td>宅地建物取引業免許／賃貸住宅管理業登録／電気通信事業届出 など該当するもの</td></tr>
+          -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__in">
+    <div>
+      <a class="logo" href="#top" aria-label="合同会社オオスギ トップへ">
+        <svg viewBox="0 0 40 40" aria-hidden="true"><g fill="none" stroke-width="1.2"><ellipse cx="21" cy="21" rx="17" ry="16" stroke="#E9E0CE"/><ellipse cx="21.5" cy="21.5" rx="12" ry="11.2" stroke="#E9E0CE" opacity=".7"/><ellipse cx="22" cy="22" rx="7.2" ry="6.8" stroke="#C28A62"/><circle cx="22.4" cy="22.3" r="2.4" fill="#C28A62"/></g></svg>
+        <span class="logo__ja">オオスギ<small>合同会社</small></span>
+      </a>
+      <p class="copy">&copy; <span id="year">2026</span> Oosugi LLC.</p>
+    </div>
+    <nav aria-label="フッターメニュー">
+      <ul>
+        <li><a href="#concept">私たちについて</a></li>
+        <li><a href="#business">事業内容</a></li>
+        <li><a href="#message">代表メッセージ</a></li>
+        <li><a href="#profile">会社概要</a></li>
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  /* ---------- Header / Menu ---------- */
+  var header = document.getElementById("header");
+  var btn = document.getElementById("menuBtn");
+  var nav = document.getElementById("gnav");
+  function setMenu(open){
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    btn.setAttribute("aria-label", open ? "メニューを閉じる" : "メニューを開く");
+    nav.classList.toggle("is-open", open);
+    document.body.style.overflow = open ? "hidden" : "";
+  }
+  btn.addEventListener("click", function(){ setMenu(btn.getAttribute("aria-expanded") !== "true"); });
+  nav.querySelectorAll("a").forEach(function(a){ a.addEventListener("click", function(){ setMenu(false); }); });
+  document.addEventListener("keydown", function(e){
+    if(e.key === "Escape" && nav.classList.contains("is-open")){ setMenu(false); btn.focus(); }
+  });
+
+  /* ---------- Scroll rail（杉が伸びる） ---------- */
+  var grow = document.getElementById("railGrow");
+  var crown = document.getElementById("railCrown");
+  var rail = document.querySelector(".rail");
+  // 年輪の目盛り
+  for(var i=1;i<10;i++){ var t=document.createElement("div"); t.className="rail__tick"; t.style.bottom=(i*10)+"%"; rail.appendChild(t); }
+  var ticking = false;
+  function onScroll(){
+    var y = window.scrollY;
+    header.classList.toggle("is-scrolled", y > 40);
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var p = max > 0 ? Math.min(1, Math.max(0, y / max)) : 0;
+    var h = rail.clientHeight;
+    grow.style.height = (p * 100) + "%";
+    crown.style.transform = "translateY(" + (-p * h + 2) + "px)";
+    ticking = false;
+  }
+  window.addEventListener("scroll", function(){ if(!ticking){ requestAnimationFrame(onScroll); ticking = true; } }, {passive:true});
+  window.addEventListener("resize", onScroll);
+  onScroll();
+
+  /* ---------- Hero：年輪のキャンバス ---------- */
+  var cv = document.getElementById("rings");
+  var ctx = cv.getContext("2d");
+  var W, H, cx, cy, maxR, dpr, seed = Math.random() * 100;
+  function size(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    var mobile = W < 900;
+    cx = mobile ? W * 0.72 : W * 0.66;
+    cy = mobile ? H * 0.3 : H * 0.5;
+    maxR = Math.hypot(Math.max(cx, W - cx), Math.max(cy, H - cy)) + 40;
+  }
+  // 年輪のゆらぎ（複数の正弦波の合成）
+  function wobble(a, r){
+    var k = r * 0.012;
+    return Math.sin(a * 2 + seed + k) * 3.2 * (r / 120)
+         + Math.sin(a * 3 - seed * .7 + k * 1.7) * 2.1 * (r / 140)
+         + Math.sin(a * 5 + seed * 1.3 - k) * 1.1 * (r / 200)
+         + Math.sin(a + seed * .4) * r * 0.06;
+  }
+  function ringR(n){ // 年ごとに幅が少しずつ違う
+    var r = 0;
+    for(var i=0;i<n;i++){ r += 9 + Math.sin(i * 1.7 + seed) * 3 + Math.sin(i * .37 + seed) * 2.5; }
+    return r;
+  }
+  var total = 0;
+  function countRings(){ total = 0; while(ringR(total) < maxR){ total++; } }
+  var heart = [194,138,98], sap = [233,224,206];
+  function draw(shown){
+    ctx.clearRect(0,0,W,H);
+    // 中心の赤身
+    var g = ctx.createRadialGradient(cx,cy,0,cx,cy,ringR(Math.min(8,total)));
+    g.addColorStop(0,"rgba(194,138,98,.16)"); g.addColorStop(1,"rgba(194,138,98,0)");
+    ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+    var full = Math.floor(shown);
+    for(var n=1;n<=Math.min(total, full + 1);n++){
+      var frac = n <= full ? 1 : shown - full;
+      if(frac <= 0) continue;
+      var r = ringR(n);
+      var tt = Math.min(1, n / 14);
+      var c = [0,1,2].map(function(k){ return Math.round(heart[k] + (sap[k] - heart[k]) * tt); });
+      var late = n % 6 === 0;
+      var alpha = (late ? .34 : .16) * (1 - Math.min(.7, r / maxR * .8));
+      ctx.strokeStyle = "rgba(" + c.join(",") + "," + alpha + ")";
+      ctx.lineWidth = late ? 1.6 : .8;
+      ctx.beginPath();
+      var steps = 180, end = Math.PI * 2 * frac;
+      for(var s=0;s<=steps;s++){
+        var a = -Math.PI / 2 + end * s / steps;
+        var rr = r + wobble(a, r);
+        var x = cx + Math.cos(a) * rr, y = cy + Math.sin(a) * rr * 0.94;
+        s === 0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+      }
+      ctx.stroke();
+    }
+    // 乾燥割れ（放射状の細い筋）
+    if(shown >= total){
+      ctx.strokeStyle = "rgba(233,224,206,.07)"; ctx.lineWidth = .8;
+      ctx.beginPath(); ctx.moveTo(cx + 18, cy + 6);
+      for(var q=1;q<=24;q++){ var rr2 = 18 + q * (maxR * .5 / 24); ctx.lineTo(cx + rr2 + Math.sin(q) * 4, cy + 6 + q * 2.2 + Math.sin(q*1.9) * 3); }
+      ctx.stroke();
+    }
+  }
+  function start(){
+    size(); countRings();
+    if(reduce){ draw(total); return; }
+    var dur = 2800, t0 = null;
+    function step(ts){
+      if(!t0) t0 = ts;
+      var p = Math.min(1, (ts - t0) / dur);
+      var e = 1 - Math.pow(1 - p, 3);
+      draw(e * total);
+      if(p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var rt;
+  window.addEventListener("resize", function(){ clearTimeout(rt); rt = setTimeout(function(){ size(); countRings(); draw(total); }, 150); });
+  start();
+
+  /* ---------- Tree SVG：線の長さを測って描画 ---------- */
+  var tree = document.getElementById("treeSvg");
+  tree.querySelectorAll(".part path, .part polygon, .part line").forEach(function(el){
+    try{ el.style.setProperty("--len", Math.ceil(el.getTotalLength()) + 1); }catch(e){}
+  });
+
+  /* ---------- Reveal ---------- */
+  var targets = document.querySelectorAll(".reveal-img");
+  if("IntersectionObserver" in window && !reduce){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add(en.target === tree ? "is-drawn" : "is-in"); io.unobserve(en.target); }
+      });
+    }, {threshold:.25});
+    targets.forEach(function(t){ io.observe(t); });
+    io.observe(tree);
+  } else {
+    targets.forEach(function(t){ t.classList.add("is-in"); });
+    tree.classList.add("is-drawn");
+  }
+})();
+</script>
+</body>
+</html>
